@@ -124,7 +124,7 @@
     <div class="generator">
       <label for="nameInput">Enter your name or text</label>
       <div class="inputrow">
-        <input id="nameInput" maxlength="32" value="Queen" placeholder="Type your name here..." autocomplete="off">
+        <input id="nameInput" maxlength="32" value="Anum" placeholder="Type your name here..." autocomplete="off">
         <button id="generateBtn" type="button">Generate Styles ✨</button>
       </div>
       <div class="gender-row">
@@ -142,7 +142,7 @@
       <div class="iam-card" aria-live="polite">
         <div class="iam-label">✦ FEATURED HOME STYLE ✦</div>
         <div class="iam-top">I AM</div>
-        <div class="iam-name" id="iamName">Qᴜᴇᴇɴ</div>
+        <div class="iam-name" id="iamName">Q͢͢͢uͥeeͣnͫ</div>
         <button id="copyIamBtn" type="button">Copy I AM Style</button>
       </div>
     </div>
@@ -564,6 +564,9 @@
   makeStyles();
   updateIamStyle();
 })();
+  window.addEventListener('load', () => {
+  if(document.getElementById('nameInput')) generateStyles();
+});
 </script>
 </body>
 </html>
