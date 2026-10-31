@@ -2,11 +2,11 @@
 
 > Create 1,634+ Stylish, VIP, Queen & Gaming Fonts for Instagram, Free Fire, PUBG, TikTok & WhatsApp - No App Needed!
 
-Live Demo: https://fancynamestyle.github.io
+Live Demo: https://fancynamestyle.com
 Made with ❤️ by Anum | License: MIT
 
 🌸 Live Website
-https://fancynamestyle.github.io
+https://fancynamestyle.com
 
 💎 What is Fancy Name Style 
 
