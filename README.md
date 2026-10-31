@@ -53,12 +53,11 @@ We create stylish identities with crowns 👑, hearts 💖, and aesthetic symbol
 - GitHub Pages Hosting
 
 📄 Pages
-
-index.html - Main Generator
-about.html - About Us
-contact.html - Contact Us
-privacy-policy.html - Privacy Policy
-disclaimer.html - Disclaimer
+* https://fancynamestyle.com/ - Main Generator
+* https://fancynamestyle.com/about.html - About Us
+* https://fancynamestyle.com/contact.html - Contact Us
+* https://fancynamestyle.com/privacy-policy.html - Privacy Policy
+* https://fancynamestyle.com/disclaimer.html - Disclaimer
 
 📧 Contact
 
