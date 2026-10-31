@@ -54,16 +54,16 @@ We create stylish identities with crowns 👑, hearts 💖, and aesthetic symbol
 
 📄 Pages
 
-- http://index.html - Main Generator
-- http://about.html - About Us
-- http://contact.html - Contact Us
-- http://privacy-policy.html - Privacy Policy
-- http://disclaimer.html - Disclaimer
+index.html - Main Generator
+about.html - About Us
+contact.html - Contact Us
+privacy-policy.html - Privacy Policy
+disclaimer.html - Disclaimer
 
 📧 Contact
 
 Have a suggestion for a new style? Contact us:
-Email: madihaakram0101@gmail.com
+Email: officialfancynamestyle@gmail.com
 
 ©️ Copyright
 
