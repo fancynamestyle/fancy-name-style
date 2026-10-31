@@ -48,7 +48,7 @@
     html{scroll-behavior:smooth}
     body{margin:0;background:radial-gradient(ellipse at top,#21190c 0,#090909 42%);color:var(--white);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;line-height:1.55}
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(1120px,calc(100% - 30px));margin:auto}
+    .wrap{width:min(430px,calc(100% - 30px));margin:auto}
     header{border-bottom:1px solid #302719;background:rgba(8,8,8,.92);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
     .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:15px}
     .brand{font-size:21px;font-weight:900;letter-spacing:.2px;color:var(--gold2)}
@@ -74,11 +74,11 @@
     .sectionhead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:17px}
     h2{font-size:clamp(23px,4vw,31px);margin:0;color:var(--gold2)}
     .sub{color:#aaa;font-size:14px;margin:5px 0 0}
-    .toolbar{display:grid;grid-template-columns:1fr 220px;gap:10px;margin:14px 0 18px}
+    .toolbar{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 18px}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
     .chip{background:#191713;color:#ddd;border:1px solid #423725;border-radius:30px;padding:8px 13px;font-size:13px;cursor:pointer}
     .chip.active,.chip:hover{background:#4b391b;color:#ffe2a1;border-color:#9b7535}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .grid{display:grid;grid-template-columns:1fr;gap:11px}
     .stylecard{background:linear-gradient(145deg,#191919,#111);border:1px solid #302b22;border-radius:14px;padding:14px;min-width:0}
     .stylecard:hover{border-color:#80612e}
     .styletext{font-size:19px;overflow-wrap:anywhere;min-height:34px;margin-bottom:12px;color:#fff}
@@ -90,7 +90,7 @@
     .empty{color:#aaa;text-align:center;padding:30px;grid-column:1/-1}
     .loadmore-wrap{text-align:center;padding:18px 0 4px}
     #loadMoreBtn{min-width:190px}
-    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .info-grid{display:grid;grid-template-columns:1fr;gap:12px}
     .info{background:#151515;border:1px solid #332b1d;border-radius:14px;padding:17px}
     .info b{display:block;color:var(--gold2);margin-bottom:5px}
     .info p{margin:0;color:#b9b9b9;font-size:14px}
@@ -560,13 +560,11 @@
   search.addEventListener('input',()=>{visibleCount=60;render();});
   filter.addEventListener('change',()=>{visibleCount=60;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter===filter.value));render();});
   document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{visibleCount=60;filter.value=c.dataset.filter;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===c));render();}));
-  $('#year').textContent=new Date().getFullYear();
+  const yearElement=$('#year');
+  if(yearElement) yearElement.textContent=new Date().getFullYear();
   makeStyles();
   updateIamStyle();
 })();
-  window.addEventListener('load', () => {
-  if(document.getElementById('nameInput')) generateStyles();
-});
 </script>
 </body>
 </html>
