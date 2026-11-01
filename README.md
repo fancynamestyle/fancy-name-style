@@ -62,7 +62,7 @@ We create stylish identities with crowns 👑, hearts 💖, and aesthetic symbol
 📧 Contact
 
 Have a suggestion for a new style? Contact us:
-Email: officialfancynamestyle@gmail.com
+Email: contact@fancynamestyle.com
 
 ©️ Copyright
 
