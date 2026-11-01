@@ -56,7 +56,7 @@ We create stylish identities with crowns 👑, hearts 💖, and aesthetic symbol
 * https://fancynamestyle.com/ - Main Generator
 * https://fancynamestyle.com/about.html - About Us
 * https://fancynamestyle.com/contact.html - Contact Us
-* https://fancynamestyle.com/privacy-policy.html - Privacy Policy
+* https://fancynamestyle.com/privacypolicy.html - Privacy Policy
 * https://fancynamestyle.com/disclaimer.html - Disclaimer
 
 📧 Contact
