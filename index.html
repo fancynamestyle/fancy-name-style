@@ -569,5 +569,245 @@
   updateIamStyle();
 })();
 </script>
+  <!-- ROYAL DIAMOND LUXURY RATING -->
+<style>
+#royal-rating {
+  max-width: 650px;
+  margin: 38px auto;
+  padding: 30px 18px;
+  text-align: center;
+  color: #f8edcf;
+  background:
+    radial-gradient(ellipse at top, #302515 0%, #111 48%, #080808 100%);
+  border: 1px solid #c6a45b;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(198,164,91,.13);
+  font-family: Georgia, serif;
+  box-sizing: border-box;
+}
+#royal-rating * { box-sizing: border-box; }
+#royal-rating .diamond {
+  color: #e8cd8a;
+  font-size: 27px;
+  animation: diamondGlow 2s ease-in-out infinite alternate;
+}
+#royal-rating .eyebrow {
+  color: #d4b875;
+  font: 11px Arial, sans-serif;
+  letter-spacing: 4px;
+  margin: 9px 0 17px;
+}
+#royal-rating h2 {
+  color: #f0d99d;
+  font-size: clamp(23px, 5vw, 31px);
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+#royal-rating .intro {
+  color: #c8b98f;
+  font: 13px Arial, sans-serif;
+  margin: 0 0 22px;
+}
+#royal-rating .stars {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin: 15px 0;
+}
+#royal-rating .stars button {
+  border: 0;
+  background: transparent;
+  color: #625638;
+  font-size: clamp(32px, 8vw, 43px);
+  cursor: pointer;
+  padding: 2px;
+  transition: .25s;
+}
+#royal-rating .stars button.active,
+#royal-rating .stars button:hover {
+  color: #f0cc72;
+  text-shadow: 0 0 13px rgba(240,204,114,.65);
+  transform: translateY(-3px) scale(1.1);
+}
+#royal-rating .hint {
+  color: #d8c28d;
+  font: 10px Arial, sans-serif;
+  letter-spacing: 2px;
+}
+#royal-rating .stats {
+  background: linear-gradient(135deg,#211b10,#100e0a);
+  border: 1px solid #806b3f;
+  border-radius: 14px;
+  padding: 17px 10px;
+  margin: 22px 0 15px;
+}
+#royal-rating .average {
+  color: #f0d99d;
+  font: bold 30px Arial, sans-serif;
+}
+#royal-rating .total {
+  color: #c8b98f;
+  font: 12px Arial, sans-serif;
+  margin-top: 7px;
+}
+#royal-submit {
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #f3dc9e;
+  border-radius: 9px;
+  padding: 14px 18px;
+  color: #171006;
+  background: linear-gradient(110deg,#a9853e,#f4df9e,#b38d47);
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .25s;
+}
+#royal-submit:hover {
+  box-shadow: 0 0 18px rgba(232,205,138,.4);
+  transform: translateY(-2px);
+}
+#royal-submit:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+#royal-message {
+  color: #e8cd8a;
+  font: 12px Arial, sans-serif;
+  min-height: 18px;
+  margin: 13px 0 0;
+}
+#royal-rating .footer-note {
+  color: #aa9566;
+  font: 10px Arial, sans-serif;
+  letter-spacing: 2px;
+  margin-top: 20px;
+}
+@keyframes diamondGlow {
+  from { text-shadow: 0 0 3px #c6a45b; }
+  to { text-shadow: 0 0 17px #f0d99d; }
+}
+@media(max-width:480px) {
+  #royal-rating { padding: 25px 13px; }
+}
+</style>
+
+<section id="royal-rating">
+  <div class="diamond">✧ ◆ ✧</div>
+  <div class="eyebrow">THE ROYAL EXPERIENCE</div>
+  <h2>Your Feedback Is Precious</h2>
+  <p class="intro">Fancy Name Style with Anum</p>
+  <p class="intro">How was your experience?</p>
+
+  <div class="stars" aria-label="Choose your rating">
+    <button type="button" data-star="1" aria-label="1 star">★</button>
+    <button type="button" data-star="2" aria-label="2 stars">★</button>
+    <button type="button" data-star="3" aria-label="3 stars">★</button>
+    <button type="button" data-star="4" aria-label="4 stars">★</button>
+    <button type="button" data-star="5" aria-label="5 stars">★</button>
+  </div>
+
+  <div class="hint">✦ SELECT YOUR STARS ✦</div>
+
+  <div class="stats">
+    <div class="average" id="royal-average">— / 5</div>
+    <div class="total" id="royal-total">Loading ratings...</div>
+  </div>
+
+  <button id="royal-submit" type="button">✧ SUBMIT YOUR RATING ✧</button>
+  <p id="royal-message" aria-live="polite"></p>
+  <div class="footer-note">A LITTLE LOVE MAKES US SHINE</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async function () {
+  const client = window.supabase.createClient(
+    'https://zymkvwqggxcyzearsupy.supabase.co',
+    'sb_publishable_4lgw375i_u2l_Wc7j7UvSw_SfR1mQMT'
+  );
+
+  const parts = location.pathname.split('/').filter(Boolean);
+  if (parts[parts.length - 1] === 'index.html') parts.pop();
+  const pageSlug = parts.length ? parts[parts.length - 1] : 'home';
+
+  const stars = document.querySelectorAll('#royal-rating [data-star]');
+  const submit = document.getElementById('royal-submit');
+  const average = document.getElementById('royal-average');
+  const total = document.getElementById('royal-total');
+  const message = document.getElementById('royal-message');
+  const storageKey = 'royal_rated_' + pageSlug;
+  let selected = 0;
+
+  function paint(value) {
+    stars.forEach(star => {
+      star.classList.toggle('active', Number(star.dataset.star) <= value);
+    });
+  }
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      if (localStorage.getItem(storageKey)) return;
+      selected = Number(star.dataset.star);
+      paint(selected);
+    });
+  });
+
+  async function loadRatings() {
+    const { data, error } = await client
+      .from('website_ratings')
+      .select('rating')
+      .eq('page_slug', pageSlug);
+
+    if (error) {
+      average.textContent = '— / 5';
+      total.textContent = 'Ratings could not be loaded';
+      console.error(error);
+      return;
+    }
+
+    const number = data.length;
+    const sum = data.reduce((acc, row) => acc + row.rating, 0);
+    average.textContent = number ? (sum / number).toFixed(1) + ' / 5' : '— / 5';
+    total.textContent = number + (number === 1 ? ' rating' : ' ratings');
+  }
+
+  if (localStorage.getItem(storageKey)) {
+    message.textContent = 'Thank you! You have already rated this page.';
+    submit.disabled = true;
+  }
+
+  submit.addEventListener('click', async () => {
+    if (localStorage.getItem(storageKey)) {
+      message.textContent = 'You have already rated this page.';
+      return;
+    }
+    if (!selected) {
+      message.textContent = 'Please select your stars first.';
+      return;
+    }
+
+    submit.disabled = true;
+    message.textContent = 'Saving your rating...';
+
+    const { error } = await client
+      .from('website_ratings')
+      .insert({ rating: selected, page_slug: pageSlug });
+
+    if (error) {
+      console.error(error);
+      message.textContent = 'Could not save. Please try again.';
+      submit.disabled = false;
+      return;
+    }
+
+    localStorage.setItem(storageKey, 'yes');
+    message.textContent = 'Thank you for your precious feedback! ✨';
+    await loadRatings();
+  });
+
+  await loadRatings();
+})();
+</script>
 </body>
 </html>
