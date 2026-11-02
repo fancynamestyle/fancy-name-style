@@ -165,6 +165,178 @@ h1{font-size:27px}
 
 </article>
 </main>
+<!-- ARTICLE GOLDEN CROWN RATING -->
+<div id="gold-rating">
+  <div class="crown">♛</div>
+  <h2>YOUR OPINION IS GOLD</h2>
+  <p class="subtitle">FANCY NAME STYLE WITH ANUM</p>
+  <p>How Was Your Experience?</p>
+
+  <div class="stars">
+    <button type="button" data-value="1">★</button>
+    <button type="button" data-value="2">★</button>
+    <button type="button" data-value="3">★</button>
+    <button type="button" data-value="4">★</button>
+    <button type="button" data-value="5">★</button>
+  </div>
+
+  <div class="stats">
+    <div class="average" id="gold-average">— / 5</div>
+    <div class="small" id="gold-count">Loading ratings...</div>
+  </div>
+
+  <button class="submit" id="gold-submit" type="button">
+    SUBMIT YOUR RATING
+  </button>
+  <div class="message" id="gold-message"></div>
+</div>
+
+<style>
+#gold-rating {
+  max-width:650px;margin:35px auto;padding:28px 18px;
+  text-align:center;color:#fff;
+  background:radial-gradient(circle at top,#302719,#090909 65%);
+  border:1px solid #c5a04b;border-radius:20px;
+  box-shadow:0 8px 35px rgba(197,160,75,.16);
+  font-family:Arial,sans-serif;
+}
+#gold-rating .crown {
+  font-size:38px;color:#e8c66e;
+  animation:crownGlow 2s infinite alternate;
+}
+#gold-rating h2 {
+  color:#e8c66e;letter-spacing:2px;font-size:21px;
+}
+#gold-rating .subtitle,#gold-rating .small {
+  color:#c8b98f;font-size:12px;
+}
+#gold-rating .stars {
+  display:flex;justify-content:center;gap:7px;margin:20px 0;
+}
+#gold-rating .stars button {
+  background:transparent;border:0;color:#62583e;
+  font-size:38px;cursor:pointer;padding:2px;
+}
+#gold-rating .stars button.active {
+  color:#f0c75e;text-shadow:0 0 15px #d5a936;
+  transform:scale(1.12);
+}
+#gold-rating .stats {
+  background:rgba(207,169,83,.09);
+  border:1px solid rgba(207,169,83,.35);
+  border-radius:12px;padding:15px;margin:18px 0;
+}
+#gold-rating .average {
+  font-size:29px;color:#f0ce79;font-weight:bold;
+}
+#gold-rating .submit {
+  background:linear-gradient(110deg,#9b762d,#f3d889,#b38a37);
+  color:#171109;border:0;border-radius:30px;
+  padding:13px 30px;font-weight:bold;cursor:pointer;
+}
+#gold-rating .submit:disabled {opacity:.55;cursor:not-allowed}
+#gold-rating .message {color:#e8c66e;font-size:13px;margin-top:14px}
+@keyframes crownGlow {
+  from {text-shadow:0 0 3px #c49b42}
+  to {text-shadow:0 0 20px #f2d37b}
+}
+@media(max-width:480px) {
+  #gold-rating {margin:25px 10px;padding:23px 12px}
+  #gold-rating .stars button {font-size:33px}
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async function () {
+  const db = window.supabase.createClient(
+    'https://zymkvwqggxcyzearsupy.supabase.co',
+    'sb_publishable_4lgw375i_u2l_Wc7j7UvSw_SfR1mQMT'
+  );
+
+  const slug = 'what-is-fancy-text-generator';
+  const root = document.getElementById('gold-rating');
+  const stars = root.querySelectorAll('.stars button');
+  const submit = document.getElementById('gold-submit');
+  const message = document.getElementById('gold-message');
+  const average = document.getElementById('gold-average');
+  const count = document.getElementById('gold-count');
+  let selected = 0;
+  const key = 'gold_rated_' + slug;
+
+  function paint(v) {
+    stars.forEach(s => s.classList.toggle(
+      'active', Number(s.dataset.value) <= v
+    ));
+  }
+
+  async function refresh() {
+    const {data,error} = await db
+      .from('website_ratings')
+      .select('rating')
+      .eq('page_slug',slug);
+
+    if(error) {
+      average.textContent='Error';
+      count.textContent='Could not load ratings';
+      console.error(error);
+      return;
+    }
+
+    const total=data.length;
+    const avg=total
+      ? data.reduce((sum,i)=>sum+i.rating,0)/total
+      : 0;
+
+    average.textContent=total ? avg.toFixed(1)+' / 5 ★' : '— / 5';
+    count.textContent=total
+      ? total+(total===1?' rating':' ratings')
+      : 'No ratings yet - be first!';
+  }
+
+  if(localStorage.getItem(key)) {
+    message.textContent='Thank you! You already rated this article. ♥';
+    submit.disabled=true;
+  }
+
+  stars.forEach(star => {
+    star.addEventListener('click',() => {
+      if(localStorage.getItem(key)) return;
+      selected=Number(star.dataset.value);
+      paint(selected);
+      message.textContent=selected+' out of 5 stars selected';
+    });
+  });
+
+  submit.addEventListener('click',async () => {
+    if(localStorage.getItem(key)) return;
+    if(!selected) {
+      message.textContent='Please select stars first!';
+      return;
+    }
+
+    submit.disabled=true;
+    message.textContent='Saving...';
+
+    const {error}=await db
+      .from('website_ratings')
+      .insert({rating:selected,page_slug:slug});
+
+    if(error) {
+      message.textContent='Could not save. Please try again.';
+      console.error(error);
+      submit.disabled=false;
+      return;
+    }
+
+    localStorage.setItem(key,'yes');
+    message.textContent='Thank you for sharing your love! ♥';
+    await refresh();
+  });
+
+  await refresh();
+})();
+</script>
 
 <footer>
 <div class="links">
